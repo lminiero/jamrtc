@@ -25,7 +25,7 @@ Apart from that, there are some other advantages in using WebRTC for the job. If
 
 # Architecture
 
-As anticipated, the main idea behind this effort was to try and write a native WebRTC application to optimize the process as much as possible, especially where latency is involved. I decided to base this on @GStreamer's [webrtcbin](https://gstreamer.freedesktop.org/documentation/webrtc/?gi-language=c), for a few different reasons:
+As anticipated, the main idea behind this effort was to try and write a native WebRTC application to optimize the process as much as possible, especially where latency is involved. I decided to base this on @GStreamer 's [webrtcbin](https://gstreamer.freedesktop.org/documentation/webrtc/?gi-language=c), for a few different reasons:
 
 * I already had a bit of experience with it, having used it briefly in a couple of other projects;
 * GStreamer comes with a great set of plugins for decoding, encoding and rendering media;
@@ -38,7 +38,7 @@ At the same time, I wanted to use Janus as a reference server for all endpoints 
 
 In a nutshell, the idea was to have this GStreamer-based native application join a Janus [VideoRoom](https://janus.conf.meetecho.com/docs/videoroom), and then:
 
-1. publish media to the server (e.g., your guitar and your webcam/video);
+1. publish media to the server (e.g., your guitar and your webcam/mic);
 2. subscribe to media from other participants (e.g., drum and bass player) via the same server.
 
 I conceived the application to not only allow you to share musical instruments, but also to have a parallel channel to interact with the other participants. As such, by default when launching JamRTC it will create two WebRTC PeerConnections: one to send your webcam + microphone, and another to send your instrument as an audio-only stream; of course you can choose whether you want to publish everything, just something, or nothing at all. When other participants join the session, the tool is conceived to automatically subscribe to whatever they're sharing: all the feeds are then rendered in a very simple (and super-ugly) UI, where audio streams are visualized via a wavescope.
@@ -56,7 +56,7 @@ The main dependencies of JamRTC are:
 * [Glade](https://glade.gnome.org/)
 * [libwebsockets](https://libwebsockets.org/)
 
-Make sure the related development versions of the libraries are installed, before attempting to build JamRTC, as to keep things simple the Makefile is actually very raw and naive: it makes use of `pkg-config` to detect where the libraries are installed, but if some are not available it will still try to proceed (and will fail with possibly misleading error messages). All of the libraries should be available in most repos (they definitely are on Fedora, which is what I use everyday, and to my knowledge Ubuntu as well).
+Make sure the related development versions of the libraries are installed, before attempting to build JamRTC, as to keep things simple the `Makefile` is actually very raw and naive: it makes use of `pkg-config` to detect where the libraries are installed, but if some are not available it will still try to proceed (and will fail with possibly misleading error messages). All of the libraries should be available in most repos (they definitely are on Fedora, which is what I use everyday, and to my knowledge Ubuntu as well).
 
 Once the dependencies are installed, all you need to do to build JamRTC is to type:
 
@@ -168,7 +168,7 @@ As you can see, there are two JACK input nodes, both of which currently not rece
 
 ![Launching JamRTC](images/jack-2.png)
 
-Since we want to share our microphone to chat with the others as well, we may need an app to help with that: in this instance, in fact, the capture device is my Focusrite soundcard, which is not where my microphone is. Specifically, I want to use the microphone of my laptop, so I can use tools like `zita-a2j` to add an Alsa device as an additional capture device, e.g.:
+Since we want to share our microphone to chat with the other participants as well, we may need an app to help with that: in this instance, in fact, the capture device is my Focusrite soundcard, which is not where my microphone is. Specifically, I want to use the microphone of my laptop, so I can use tools like `zita-a2j` to add an Alsa device as an additional capture device, e.g.:
 
 	zita-a2j -d hw:0
 
