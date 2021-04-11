@@ -246,20 +246,20 @@ static jamrtc_mutex transactions_mutex;
 
 
 /* Video rendering callbacks */
-typedef enum janus_video_message_action {
+typedef enum jamrtc_video_message_action {
 	JAMRTC_ACTION_NONE = 0,
 	JAMRTC_ACTION_ADD_PARTICIPANT,
 	JAMRTC_ACTION_ADD_STREAM,
 	JAMRTC_ACTION_REMOVE_STREAM,
 	JAMRTC_ACTION_REMOVE_PARTICIPANT
-} janus_video_message_action;
+} jamrtc_video_message_action;
 typedef struct jamrtc_video_message {
-	janus_video_message_action action;
+	jamrtc_video_message_action action;
 	gpointer resource;
 	gboolean video;
 	char *sink;
 } jamrtc_video_message;
-static jamrtc_video_message *jamrtc_video_message_create(janus_video_message_action action,
+static jamrtc_video_message *jamrtc_video_message_create(jamrtc_video_message_action action,
 		gpointer resource, gboolean video, const char *sink) {
 	jamrtc_video_message *msg = g_malloc(sizeof(jamrtc_video_message));
 	msg->action = action;
@@ -1283,10 +1283,10 @@ void jamrtc_send_message(char *text) {
 		lws_cancel_service(context);
 #else
 	/* On libwebsockets < 3.x we use lws_callback_on_writable */
-	janus_mutex_lock(&writable_mutex);
+	jamrtc_mutex_lock(&writable_mutex);
 	if(wsi != NULL)
 		lws_callback_on_writable(wsi);
-	janus_mutex_unlock(&writable_mutex);
+	jamrtc_mutex_unlock(&writable_mutex);
 #endif
 }
 
