@@ -110,7 +110,7 @@ Here's a few examples of how you can launch it.
 
 ### Connect to the online Janus demo to do the same
 
-	./JamRTC -w wss://janus.conf.meetecho.com/ws -r 1234 -d Lorenzo -i Guitar
+	./JamRTC -w wss://janus-legacy.conf.meetecho.com/ws -r 1234 -d Lorenzo -i Guitar
 
 > Note that room `1234` is the default room on our online demos, and so you'll find random people in it that are just joining via their browser. As such, it's a bad idea to use that room for testing, unless you know there's no one else except you and who you want to test with. You may want to deploy your own Janus instance for testing.
 
